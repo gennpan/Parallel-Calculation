@@ -1,10 +1,15 @@
+/*Esercizio per il calcola della somma, prima versione.
+ * In tale algoritmo vediamo una prima parte sequenziale
+ * e una seconda parte parallela.
+ * ATTENZIONE: ovviamente il programma funziona solo
+ * quando il numero da sommare è multiplo del numero dei thread,
+ * non c'è un controllo che evita ciò in questo algoritmo.
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h> 
-
-/*Attenzione, ovviamente il programma funziona solo quando il numero da sommare è multiplo del numero dei thread, 
- * non c'è un controllo che evita ciò in questo algoritmo.*/
-
 
 int main()
 {	
@@ -22,32 +27,29 @@ int main()
 
   	printf("Inserire i numeri da sommare\n");
   	
-	for (i=0;i<N;i++)
-  	{
+	for (i=0;i<N;i++){
       		scanf("%f",&a[i]);
   	}
 	
-	//Parte Parallela
-	//Secondo la prima strategia
 	
+	
+	//Parte Parallela
+	//Rifacendoci alla prima strategia studiata nel corso
 	#pragma omp parallel private(sum,nloc,i) shared(sumtot)
 
-  { // se piu di un'istruzione
-
-   	 t=omp_get_num_threads();	//come prima cosa vado a capire quanti thread siamo a fare ciò 
-	 nloc=N/t;	//ricordo che è privato per ora
+    { // se piu di un'istruzione
+   	 t=omp_get_num_threads();						//come prima cosa vado a capire quanti thread sono attivi nel fare ciò 
+	 nloc=N/t;								//ricordo che è privato per ora
 	 printf("sono %d, di %d: numeri %d\n",omp_get_thread_num(),t,nloc);	//metto una stampa per capire chi sta facendo cosa
     	
 	 sum=0;		//è privata, ognuno fa la sua somma
     	
-	for(i=0;i<nloc;i++)
-    	{
+	for(i=0;i<nloc;i++){
        		sum=sum+a[i+nloc*omp_get_thread_num()];
     	}
-    	sumtot+=sum;
+    	
+	sumtot+=sum;
 
-  } //fine direttiva
-  	
+    } //fine direttiva  	
 	printf("somma totale: %f\n",sumtot);
-
 }
