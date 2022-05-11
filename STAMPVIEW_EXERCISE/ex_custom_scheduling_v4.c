@@ -3,7 +3,7 @@
  * di secondi pari all'indice dell'iterazione.
  * Capiamo che bisogna bilanciare il lavoro su ogni thread
  *
- * versione 3 con dynamic e chunk, ci consente di stressare
+ * versione 4 con dynamic e chunk, ci consente di stressare
  * il codice, ad esempio potrei metterlo a 1000 (valore della costante)
  *per fare tutte le operazioni sequenziali al thread 0
  * */

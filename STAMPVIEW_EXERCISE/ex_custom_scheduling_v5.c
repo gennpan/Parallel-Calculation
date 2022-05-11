@@ -3,9 +3,7 @@
  * di secondi pari all'indice dell'iterazione.
  * Capiamo che bisogna bilanciare il lavoro su ogni thread
  *
- * versione 2 con dynamic per tenere le iterazioni ordinate,
- * perde chiaramente un po' di tempo per riorganizzare 
- * le 16 iterazioni
+ * versione 5 con guided
  * */
 
 
